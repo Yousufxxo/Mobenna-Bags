@@ -293,6 +293,18 @@
   .toggle-switch.on{background:var(--orange)}
   .toggle-knob{position:absolute;top:2px;left:2px;width:16px;height:16px;background:var(--white);border-radius:50%;transition:left 0.2s}
   .toggle-switch.on .toggle-knob{left:20px}
+  /* ADMIN EDIT MODAL */
+  .edit-modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:4000;display:flex;align-items:center;justify-content:center;padding:1rem;opacity:0;pointer-events:none;transition:opacity 0.3s}
+  .edit-modal-overlay.active{opacity:1;pointer-events:all}
+  .edit-modal{background:var(--white);width:100%;max-width:680px;max-height:92vh;overflow-y:auto;position:relative;transform:translateY(30px);transition:transform 0.35s cubic-bezier(0.4,0,0.2,1)}
+  .edit-modal-overlay.active .edit-modal{transform:translateY(0)}
+  .edit-modal-header{background:var(--black);color:var(--white);padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:5}
+  .edit-modal-body{padding:2rem}
+  .edit-img-preview{width:100%;aspect-ratio:4/3;object-fit:cover;border:1px solid var(--gray-200);margin-top:0.5rem;display:none}
+  /* ADMIN PRODUCT CARDS — clickable */
+  .admin-product-card{border:1px solid var(--gray-200);padding:1rem;position:relative;cursor:pointer;transition:border-color var(--transition),box-shadow var(--transition)}
+  .admin-product-card:hover{border-color:var(--orange);box-shadow:0 4px 20px rgba(232,101,10,0.1)}
+
   .toast{position:fixed;top:calc(var(--nav-h) + 1rem);right:1rem;background:var(--black);color:var(--white);padding:0.8rem 1.5rem;font-size:0.82rem;font-weight:500;z-index:5000;transform:translateX(110%);transition:transform 0.3s ease;border-left:3px solid var(--orange)}
   .toast.show{transform:translateX(0)}
 
@@ -633,7 +645,7 @@
   <div class="container">
     <div class="footer-inner">
       <div>
-        <div class="footer-brand">MOBENNA<span>.</span></div>
+        <div class="footer-brand">MOBENNA<span>.</span>BAGS</div>
         <div class="footer-tagline">Luxury fashion and accessories for the bold, the stylish, and the confident. Premium bags and wears for every occasion.</div>
       </div>
       <div>
@@ -928,7 +940,104 @@
         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></svg>
         I've Paid — Send Receipt on WhatsApp
       </button>
-      <p style="font-size:0.72rem;color:var(--gray-400);text-align:center;margin-top:0.8rem;line-height:1.5">After payment, click the button above to open WhatsApp and send us your payment receipt/screenshot for order confirmation.</p>
+      <p style="font-size:0.72rem;color:var(--orange);text-align:center;margin-top:0.8rem;line-height:1.5">After payment, click the button above to open WhatsApp and send us your payment receipt/screenshot for order confirmation.</p>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT PRODUCT MODAL -->
+<div class="edit-modal-overlay" id="editModal" onclick="closeEditModalOverlay(event)">
+  <div class="edit-modal" id="editModalBox">
+    <div class="edit-modal-header">
+      <div>
+        <div style="font-size:0.65rem;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--orange);margin-bottom:0.2rem">Admin</div>
+        <div style="font-family:var(--font-display);font-size:1.4rem;font-weight:300">Edit Product</div>
+      </div>
+      <button onclick="closeEditModal()" style="background:rgba(255,255,255,0.1);border:none;color:var(--white);width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:50%;flex-shrink:0">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="edit-modal-body">
+      <input type="hidden" id="editProductId">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">Product Name</label>
+          <input class="form-input" type="text" id="editName" placeholder="e.g. Milano Crossbody Bag">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Price (₦)</label>
+          <input class="form-input" type="number" id="editPrice" placeholder="e.g. 15000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Original Price (₦, if on sale)</label>
+          <input class="form-input" type="number" id="editOldPrice" placeholder="Leave empty if not on sale">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Category</label>
+          <select class="form-select" id="editCategory">
+            <option value="bags">Handbags</option>
+            <option value="bags">Crossbody Bags</option>
+            <option value="bags">Tote Bags</option>
+            <option value="bags">Clutches / Purses</option>
+            <option value="wears">Female Wears</option>
+            <option value="wears">Men Wears</option>
+            <option value="wears">Unisex Wears</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Tag</label>
+          <select class="form-select" id="editTag">
+            <option value="new">New Arrival</option>
+            <option value="sale">Sale</option>
+            <option value="">None</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">In Stock</label>
+          <select class="form-select" id="editInStock">
+            <option value="true">In Stock</option>
+            <option value="false">Sold Out</option>
+          </select>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Available Colors (comma separated hex)</label>
+          <input class="form-input" type="text" id="editColors" placeholder="e.g. #000000, #8B4513, #D4A017">
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Description</label>
+          <textarea class="form-input" id="editDesc" rows="3" placeholder="Style, quality, usage..."></textarea>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">Product Image</label>
+          <div style="display:flex;gap:0.8rem;align-items:flex-start;flex-wrap:wrap">
+            <div style="flex:1;min-width:200px">
+              <input class="form-input" type="text" id="editImgUrl" placeholder="https://... (paste image URL)" oninput="previewEditImgUrl(this.value)" style="margin-bottom:0.5rem">
+              <div style="text-align:center;font-size:0.72rem;color:var(--gray-400);margin-bottom:0.5rem">— or upload a file —</div>
+              <label class="file-upload-label" for="editImgFile">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>Click to upload new image</span>
+                <small>JPG, PNG, WEBP — max 5MB</small>
+              </label>
+              <input type="file" id="editImgFile" accept="image/*" style="display:none" onchange="previewEditImgFile(this)">
+            </div>
+            <div style="width:140px;flex-shrink:0">
+              <img id="editImgPreview" class="edit-img-preview" alt="Preview" style="width:140px;height:140px;object-fit:cover;border:1px solid var(--gray-200);display:block">
+              <div style="font-size:0.68rem;color:var(--gray-400);text-align:center;margin-top:0.3rem">Current image</div>
+            </div>
+          </div>
+          <div id="editUploadLoading" style="display:none;font-size:0.78rem;color:var(--orange);margin-top:0.4rem;font-weight:500">⏳ Uploading image...</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap">
+        <button class="admin-submit" style="flex:1;margin-top:0" onclick="saveEditProduct()">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:6px"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Save Changes
+        </button>
+        <button onclick="confirmDeleteFromEdit()" style="background:#fee;color:#c00;border:1px solid #fcc;padding:0.9rem 1.5rem;font-size:0.82rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);flex-shrink:0">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:inline;margin-right:6px"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Delete Product
+        </button>
+      </div>
     </div>
   </div>
 </div>
@@ -969,9 +1078,13 @@
 // 4. Storage → bucket "product-images" (Public)
 // 5. Auth > Policies → public read; authenticated insert/update/delete
 // ============================================================
-const SUPABASE_URL      = 'https://dadxwowevewuduncyuqa.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRhZHh3b3dldmV3dWR1bmN5dXFhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYyNDI1MjksImV4cCI6MjA5MTgxODUyOX0.64vh6tlKSGOj_GTKOEvEGLiub0L8H9rR0QKne3GdpjM';
-const STORAGE_BUCKET    = 'product-images';
+// ─────────────────────────────────────────────────────────────────
+// PASTE YOUR NEW SUPABASE CREDENTIALS HERE AFTER CREATING PROJECT
+// Go to: supabase.com → your project → Settings → API
+// ─────────────────────────────────────────────────────────────────
+const SUPABASE_URL      = 'https://siszrazugdvmenimprnx.supabase.co';       // e.g. https://xxxx.supabase.co
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpc3pyYXp1Z2R2bWVuaW1wcm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjI1MTYsImV4cCI6MjA5MTkzODUxNn0.BeujAVkaS_RqYG4Mm7Iiigxz6DeJS23H8W5WgLMB_zY';  // long eyJ... key
+const STORAGE_BUCKET    = 'product-images';           // must match bucket name exactly
 
 const USE_SUPABASE = SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY';
 let db = null;
@@ -1212,7 +1325,8 @@ function renderSaleProducts(){
 
 // ============ MODAL ============
 function openModal(id){
-  const p=products.find(x=>x.id===id);if(!p)return;
+  // coerce id to same type for safe comparison (Supabase returns numbers)
+  const p=products.find(x=>String(x.id)===String(id));if(!p)return;
   currentModalProduct=p; selectedColor=p.colors[0];
   document.getElementById('modalCat').textContent=p.category.toUpperCase();
   document.getElementById('modalName').textContent=p.name;
@@ -1239,7 +1353,7 @@ function closeModalDirect(){document.getElementById('productModal').classList.re
 // ============ WHATSAPP ============
 function openWhatsApp(msg){window.open(`${WHATSAPP_URL}?text=${encodeURIComponent(msg)}`,'_blank');}
 function orderWA(id){
-  const p=products.find(x=>x.id===id);if(!p)return;
+  const p=products.find(x=>String(x.id)===String(id));if(!p)return;
   openWhatsApp(`Hello Mobenna Bags! 🛍️\n\nI'd like to order:\n*Product:* ${p.name}\n*Price:* ₦${p.price.toLocaleString()}\n\nPlease let me know the next steps. Thank you!`);
 }
 function orderWAModal(){
@@ -1250,7 +1364,7 @@ function orderWAModal(){
 
 // ============ CART ============
 function addToCart(id){
-  const p=products.find(x=>x.id===id);if(!p||!p.inStock)return;
+  const p=products.find(x=>String(x.id)===String(id));if(!p||!p.inStock)return;
   const existing=cart.find(c=>c.id===id&&c.color===selectedColor);
   if(existing) existing.qty++;
   else cart.push({id,name:p.name,price:p.price,color:selectedColor||p.colors[0],qty:1,category:p.category});
@@ -1330,7 +1444,7 @@ function setDbStatusBadge(){
 
 // ============ ADMIN LOGIN ============
 const ADMIN_USERNAME = 'mobenna';
-const ADMIN_PASSWORD = 'Mobenna2026!';
+const ADMIN_PASSWORD = 'mobenna000';
 
 function isAdminLoggedIn(){
   return sessionStorage.getItem('mobenna_admin_auth') === 'true';
@@ -1486,25 +1600,29 @@ async function addAdminProduct(){
 
 function renderAdminList(){
   const el = document.getElementById('adminProductsList');
+  if(!el) return;
   if(!products.length){
-    el.innerHTML = '<p style="color:var(--gray-400);font-size:0.85rem">No products yet.</p>';
+    el.innerHTML = '<p style="color:var(--gray-400);font-size:0.85rem;grid-column:1/-1">No products yet. Add one from the "Add Product" tab.</p>';
     return;
   }
   el.innerHTML = products.map(p=>`
-    <div class="admin-product-card">
+    <div class="admin-product-card" onclick="openEditModal(${p.id})" title="Click to edit">
+      <div style="position:absolute;top:0.6rem;right:0.6rem;background:var(--orange);color:white;font-size:0.58rem;font-weight:700;letter-spacing:0.08em;padding:0.2rem 0.5rem;text-transform:uppercase;pointer-events:none">Edit</div>
       <div style="width:100%;aspect-ratio:4/3;overflow:hidden;margin-bottom:0.8rem;background:var(--gray-100)">
-        <img src="${p.img || getPlaceholderImg(p)}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">
+        <img src="${p.img || getPlaceholderImg(p)}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover" loading="lazy">
       </div>
       <div class="admin-product-cat">${p.category}</div>
       <div class="admin-product-name">${p.name}</div>
       <div class="admin-product-price">₦${p.price.toLocaleString()}</div>
-      ${p.tag ? `<div style="display:inline-block;font-size:0.65rem;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.5rem;margin-bottom:0.5rem;background:${p.tag==='sale'?'var(--orange)':'var(--black)'};color:white">${p.tag}</div>` : ''}
-      <div class="stock-toggle">
-        <div class="toggle-switch ${p.inStock?'on':''}" onclick="toggleStock(${p.id},this)"><div class="toggle-knob"></div></div>
-        <span>${p.inStock?'In Stock':'Sold Out'}</span>
-      </div>
-      <div class="admin-card-actions" style="margin-top:0.8rem">
-        <button class="admin-del-btn" onclick="deleteProduct(${p.id})">Delete</button>
+      ${p.tag ? `<div style="display:inline-block;font-size:0.62rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;padding:0.2rem 0.6rem;margin:0.3rem 0 0.5rem;background:${p.tag==='sale'?'var(--orange)':'var(--black)'};color:white">${p.tag}</div>` : ''}
+      <div style="font-size:0.72rem;font-weight:600;color:${p.inStock?'#1a9e50':'#c00'};margin-top:0.2rem">${p.inStock?'● In Stock':'● Sold Out'}</div>
+      <div style="margin-top:0.8rem;display:flex;gap:0.5rem" onclick="event.stopPropagation()">
+        <button class="admin-edit-btn" style="flex:1;background:var(--black);color:white;font-size:0.7rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;padding:0.5rem;border:none;cursor:pointer" onclick="openEditModal(${p.id})">
+          ✏ Edit / Modify
+        </button>
+        <button class="admin-del-btn" style="padding:0.5rem 0.8rem;font-size:0.7rem;background:#fee;color:#c00;border:none;cursor:pointer;font-weight:600" onclick="deleteProduct(${p.id})">
+          🗑
+        </button>
       </div>
     </div>`).join('');
 }
@@ -1534,7 +1652,148 @@ async function deleteProduct(id){
   renderProducts();
   renderSaleProducts();
   renderAdminList();
-  showToast('Product deleted.');
+  closeEditModal();
+  showToast('Product deleted ✓');
+}
+
+// ============ EDIT MODAL ============
+let editingProductId = null;
+
+function openEditModal(id){
+  const p = products.find(x=>String(x.id)===String(id));
+  if(!p){ showToast('Product not found.'); return; }
+  editingProductId = p.id; // store the actual id from the object
+
+  document.getElementById('editProductId').value = id;
+  document.getElementById('editName').value       = p.name;
+  document.getElementById('editPrice').value      = p.price;
+  document.getElementById('editOldPrice').value   = p.oldPrice || '';
+  document.getElementById('editCategory').value   = p.category;
+  document.getElementById('editTag').value        = p.tag || '';
+  document.getElementById('editInStock').value    = p.inStock ? 'true' : 'false';
+  document.getElementById('editColors').value     = p.colors.join(', ');
+  document.getElementById('editDesc').value       = p.desc;
+  document.getElementById('editImgUrl').value     = p.img || '';
+  document.getElementById('editUploadLoading').style.display = 'none';
+
+  const prev = document.getElementById('editImgPreview');
+  if(p.img){ prev.src = p.img; prev.style.display = 'block'; }
+  else { prev.src = getPlaceholderImg(p); prev.style.display = 'block'; }
+
+  // Clear file input
+  document.getElementById('editImgFile').value = '';
+
+  document.getElementById('editModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeEditModal(){
+  document.getElementById('editModal').classList.remove('active');
+  document.body.style.overflow = '';
+  editingProductId = null;
+}
+
+function closeEditModalOverlay(e){
+  if(e.target === document.getElementById('editModal')) closeEditModal();
+}
+
+function previewEditImgUrl(url){
+  const prev = document.getElementById('editImgPreview');
+  if(url){ prev.src = url; prev.style.display = 'block'; }
+}
+
+function previewEditImgFile(input){
+  const file = input.files[0]; if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const prev = document.getElementById('editImgPreview');
+    prev.src = e.target.result;
+    prev.style.display = 'block';
+    document.getElementById('editImgUrl').value = '';
+  };
+  reader.readAsDataURL(file);
+}
+
+function confirmDeleteFromEdit(){
+  if(editingProductId !== null) deleteProduct(editingProductId);
+}
+
+async function saveEditProduct(){
+  const id       = editingProductId;
+  const name     = document.getElementById('editName').value.trim();
+  const price    = parseFloat(document.getElementById('editPrice').value);
+  const oldPrice = parseFloat(document.getElementById('editOldPrice').value) || null;
+  const category = document.getElementById('editCategory').value;
+  const tag      = document.getElementById('editTag').value || null;
+  const inStock  = document.getElementById('editInStock').value === 'true';
+  const colors   = document.getElementById('editColors').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const desc     = document.getElementById('editDesc').value.trim();
+  const imgUrl   = document.getElementById('editImgUrl').value.trim();
+  const file     = document.getElementById('editImgFile').files[0];
+
+  if(!name || !price){ showToast('Name and price are required.'); return; }
+
+  const finalColors = colors.length ? colors : ['#000000','#8B5E3C'];
+  const finalDesc   = desc || 'Premium quality product from Mobenna Bags.';
+  const loading     = document.getElementById('editUploadLoading');
+
+  loading.style.display = 'block';
+  showToast('Saving changes...');
+
+  // ── LOCAL MODE ──────────────────────────────────────────────
+  if(!USE_SUPABASE || !db){
+    let finalImg = imgUrl || null;
+    if(file){
+      finalImg = await new Promise(res => {
+        const reader = new FileReader();
+        reader.onload = e => res(e.target.result);
+        reader.readAsDataURL(file);
+      });
+    }
+    const idx = products.findIndex(x=>x.id===id);
+    if(idx>=0){
+      products[idx] = { ...products[idx], name, price, oldPrice, category, tag, inStock, colors:finalColors, desc:finalDesc, img:finalImg };
+    }
+    renderProducts(); renderSaleProducts(); renderAdminList();
+    loading.style.display = 'none';
+    closeEditModal();
+    showToast('Product updated ✓ (local mode)');
+    return;
+  }
+
+  // ── SUPABASE MODE ────────────────────────────────────────────
+  try{
+    let finalImg = imgUrl || null;
+    // If a new file was uploaded, push to Supabase Storage
+    if(file) finalImg = await uploadImageToSupabase(file);
+
+    const updates = {
+      name,
+      category,
+      price,
+      old_price:   oldPrice,
+      tag,
+      in_stock:    inStock,
+      colors:      JSON.stringify(finalColors),
+      description: finalDesc,
+      img:         finalImg
+    };
+
+    const {data, error} = await db.from('products').update(updates).eq('id', id).select().single();
+    if(error) throw new Error(error.message);
+
+    const updated = dbToProduct(data);
+    const idx = products.findIndex(x=>x.id===id);
+    if(idx>=0) products[idx] = updated; else products.unshift(updated);
+
+    renderProducts(); renderSaleProducts(); renderAdminList();
+    closeEditModal();
+    showToast('Product updated live on site ✓');
+  } catch(e){
+    showToast('Error saving: ' + e.message);
+  } finally {
+    loading.style.display = 'none';
+  }
 }
 
 // ============ FLASH SALE ADMIN ============
