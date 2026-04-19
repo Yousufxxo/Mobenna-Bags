@@ -229,9 +229,11 @@
   .modal-price .sp{color:var(--orange)}
   .modal-desc{font-size:0.9rem;color:var(--gray-700);line-height:1.7;margin-bottom:2rem}
   .color-label{font-size:0.75rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.8rem}
-  .colors-row{display:flex;gap:0.6rem;margin-bottom:2rem;flex-wrap:wrap}
-  .color-swatch{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:all 0.2s;position:relative}
-  .color-swatch.active{border-color:var(--black);transform:scale(1.15)}
+  .colors-row{display:flex;gap:0.5rem;margin-bottom:2rem;flex-wrap:wrap}
+  .color-swatch{display:inline-flex;align-items:center;gap:0.4rem;padding:0.35rem 0.85rem;border-radius:20px;cursor:pointer;border:1.5px solid var(--gray-200);background:var(--white);font-size:0.78rem;font-weight:500;color:var(--gray-700);transition:all 0.2s;white-space:nowrap}
+  .color-swatch:hover{border-color:var(--orange);color:var(--black)}
+  .color-swatch.active{border-color:var(--black);background:var(--black);color:var(--white);font-weight:600}
+  .color-swatch .color-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;border:1px solid rgba(0,0,0,0.12)}
   .modal-btns{display:flex;flex-direction:column;gap:0.8rem}
   .modal-wa-btn{display:flex;align-items:center;justify-content:center;gap:0.6rem;background:var(--orange);color:var(--white);padding:1rem;font-size:0.85rem;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;transition:background var(--transition);cursor:pointer;border:none;font-family:var(--font-body);width:100%}
   .modal-wa-btn:hover{background:#C5550A}
@@ -780,7 +782,7 @@
         </div>
         <div class="form-group">
           <label class="form-label">Available Colors (comma separated)</label>
-          <input class="form-input" type="text" id="adminColors" placeholder="e.g. #000000, #8B4513, #D4A017">
+          <input class="form-input" type="text" id="adminColors" placeholder="e.g. Black, Brown, Beige, Navy Blue, Red">
         </div>
         <div class="form-group full">
           <label class="form-label">Description</label>
@@ -1000,8 +1002,8 @@
           </select>
         </div>
         <div class="form-group full">
-          <label class="form-label">Available Colors (comma separated hex)</label>
-          <input class="form-input" type="text" id="editColors" placeholder="e.g. #000000, #8B4513, #D4A017">
+          <label class="form-label">Available Colors (comma separated)</label>
+          <input class="form-input" type="text" id="editColors" placeholder="e.g. Black, Brown, Beige, Navy Blue, Red">
         </div>
         <div class="form-group full">
           <label class="form-label">Description</label>
@@ -1105,14 +1107,14 @@ const CATEGORY_DATA = [
 ];
 
 const DEFAULT_PRODUCTS = [
-  {id:1,name:'Milano Structured Handbag',category:'bags',price:22000,oldPrice:null,tag:'new',inStock:true,colors:['#2C1A0E','#8B5E3C','#1A1A2E','#C9A87A'],desc:'A structured silhouette with gold-tone hardware and a detachable strap. Crafted from premium vegan leather, perfect for formal and casual settings.',img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80'},
-  {id:2,name:'Luxe Crossbody Bag',category:'bags',price:14500,oldPrice:18000,tag:'sale',inStock:true,colors:['#000000','#8B4513','#2F4F4F'],desc:'Sleek, compact and effortlessly stylish. This crossbody bag features a magnetic closure and adjustable strap for maximum versatility.',img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&q=80'},
-  {id:3,name:'Floral Midi Dress',category:'wears',price:16500,oldPrice:null,tag:'new',inStock:true,colors:['#FFB7C5','#E8D5B7','#9DC6C6'],desc:'Light, breathable fabric with a vibrant floral print. An adjustable waist tie creates a flattering silhouette for any occasion.',img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80'},
-  {id:4,name:'Oversized Tote Bag',category:'bags',price:19000,oldPrice:null,tag:'new',inStock:true,colors:['#D4C5A9','#3D3535','#8B7355'],desc:'Spacious yet chic — this tote is your everyday companion. Reinforced handles and an inner zip pocket make it both practical and elegant.',img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80'},
-  {id:5,name:'Unisex Streetwear Set',category:'wears',price:25000,oldPrice:null,tag:'new',inStock:true,colors:['#1C1C1C','#DCDCDC','#FF6347'],desc:'A matching co-ord set crafted for urban edge. Drop-shoulder fit with contrast stitching and premium French terry fabric.',img:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80'},
-  {id:6,name:'Classic Linen Shirt',category:'wears',price:11000,oldPrice:14000,tag:'sale',inStock:true,colors:['#F5F5DC','#87CEEB','#FFA07A'],desc:'Premium linen fabric that keeps you cool and stylish. A versatile piece that works equally well dressed up or down.',img:'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80'},
-  {id:7,name:'Men\'s Premium T-Shirt',category:'wears',price:8500,oldPrice:12000,tag:'sale',inStock:true,colors:['#1C1C1C','#DCDCDC','#2F4F4F'],desc:'Soft-touch premium cotton with a tailored fit. A wardrobe staple that pairs with everything — from joggers to smart trousers.',img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80'},
-  {id:8,name:'Suede Mini Shoulder Bag',category:'bags',price:17500,oldPrice:20000,tag:'sale',inStock:true,colors:['#C4956A','#5B3A29','#6B6B6B'],desc:'Buttery-soft suede with a timeless silhouette. The adjustable chain strap adds a touch of luxury to any outfit.',img:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80'},
+  {id:1,name:'Milano Structured Handbag',category:'bags',price:22000,oldPrice:null,tag:'new',inStock:true,colors:['Dark Brown','Tan','Navy Blue','Gold'],desc:'A structured silhouette with gold-tone hardware and a detachable strap. Crafted from premium vegan leather, perfect for formal and casual settings.',img:'https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600&q=80'},
+  {id:2,name:'Luxe Crossbody Bag',category:'bags',price:14500,oldPrice:18000,tag:'sale',inStock:true,colors:['Black','Brown','Teal'],desc:'Sleek, compact and effortlessly stylish. This crossbody bag features a magnetic closure and adjustable strap for maximum versatility.',img:'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&q=80'},
+  {id:3,name:'Floral Midi Dress',category:'wears',price:16500,oldPrice:null,tag:'new',inStock:true,colors:['Blush','Beige','Sky Blue'],desc:'Light, breathable fabric with a vibrant floral print. An adjustable waist tie creates a flattering silhouette for any occasion.',img:'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=600&q=80'},
+  {id:4,name:'Oversized Tote Bag',category:'bags',price:19000,oldPrice:null,tag:'new',inStock:true,colors:['Sand','Charcoal','Tan'],desc:'Spacious yet chic — this tote is your everyday companion. Reinforced handles and an inner zip pocket make it both practical and elegant.',img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80'},
+  {id:5,name:'Unisex Streetwear Set',category:'wears',price:25000,oldPrice:null,tag:'new',inStock:true,colors:['Black','Silver','Coral'],desc:'A matching co-ord set crafted for urban edge. Drop-shoulder fit with contrast stitching and premium French terry fabric.',img:'https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=600&q=80'},
+  {id:6,name:'Classic Linen Shirt',category:'wears',price:11000,oldPrice:14000,tag:'sale',inStock:true,colors:['Ivory','Sky Blue','Peach'],desc:'Premium linen fabric that keeps you cool and stylish. A versatile piece that works equally well dressed up or down.',img:'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?w=600&q=80'},
+  {id:7,name:'Men\'s Premium T-Shirt',category:'wears',price:8500,oldPrice:12000,tag:'sale',inStock:true,colors:['Black','Light Grey','Dark Green'],desc:'Soft-touch premium cotton with a tailored fit. A wardrobe staple that pairs with everything — from joggers to smart trousers.',img:'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=600&q=80'},
+  {id:8,name:'Suede Mini Shoulder Bag',category:'bags',price:17500,oldPrice:20000,tag:'sale',inStock:true,colors:['Caramel','Dark Brown','Grey'],desc:'Buttery-soft suede with a timeless silhouette. The adjustable chain strap adds a touch of luxury to any outfit.',img:'https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600&q=80'},
 ];
 
 let products = [];
@@ -1131,7 +1133,7 @@ function dbToProduct(row){
     oldPrice: row.old_price ? Number(row.old_price) : null,
     tag:      row.tag || null,
     inStock:  row.in_stock !== false,
-    colors:   (() => { try { return JSON.parse(row.colors); } catch(e){ return ['#000000','#8B5E3C']; } })(),
+    colors:   (() => { try { return JSON.parse(row.colors); } catch(e){ return ['Black','Brown']; } })(),
     desc:     row.description || 'Premium quality product from Mobenna Bags.',
     img:      row.img || null
   };
@@ -1323,6 +1325,47 @@ function renderSaleProducts(){
   </div>`).join('') || '<p style="color:rgba(255,255,255,0.3);font-size:0.85rem;grid-column:1/-1;text-align:center;padding:1rem 0">No sale items configured yet.</p>';
 }
 
+// ============ COLOR NAME → CSS MAPPING ============
+function colorNameToCSS(name){
+  const map={
+    // Neutrals
+    'black':'#1a1a1a','white':'#ffffff','ivory':'#fffff0','cream':'#fffdd0',
+    'beige':'#f5f0e8','sand':'#c2b280','nude':'#e8c9a0','off white':'#f8f8f0',
+    // Browns & Tans
+    'brown':'#6b3f1f','dark brown':'#3d1f0a','light brown':'#9b6a3f',
+    'tan':'#d2a679','caramel':'#c68642','chocolate':'#3d1c02','cognac':'#9b3a1a',
+    'mocha':'#6b3f2a','taupe':'#8b7d6b',
+    // Reds & Pinks
+    'red':'#cc2200','dark red':'#8b0000','wine':'#722f37','maroon':'#6b0a0a',
+    'burgundy':'#800020','rose':'#e8a0b0','blush':'#f4c2c2','pink':'#f06090',
+    'hot pink':'#e0306a','coral':'#e05040',
+    // Oranges & Yellows
+    'orange':'#e8650a','peach':'#f5a07a','mustard':'#c8a000','yellow':'#e8c800',
+    'gold':'#c9a840',
+    // Greens
+    'green':'#2a7a2a','dark green':'#1a4a1a','olive':'#6b7040','sage':'#8aaa80',
+    'mint':'#90e0c0','emerald':'#006040','forest green':'#1a4a1a','army green':'#4a5a2a',
+    // Blues
+    'blue':'#1a50c8','dark blue':'#0a2070','light blue':'#6090e0','navy':'#0a1840',
+    'navy blue':'#0a1840','sky blue':'#70c0e8','royal blue':'#2040c0',
+    'cobalt':'#1040a0','denim':'#4060a0','teal':'#009080','turquoise':'#40b0b0',
+    // Purples
+    'purple':'#6a2090','lavender':'#c090e0','violet':'#8030b0','lilac':'#c8a0d8',
+    'plum':'#5a1050','mauve':'#b08090',
+    // Grays
+    'grey':'#8a8a8a','gray':'#8a8a8a','charcoal':'#3a3a3a','silver':'#c0c0c0',
+    'light grey':'#c8c8c8','dark grey':'#4a4a4a','slate':'#6a7a8a',
+    // Metallics
+    'gold metallic':'#c9a840','silver metallic':'#b0b8c0','rose gold':'#b87060',
+    // Multi
+    'multicolor':'linear-gradient(135deg,#e83060,#e8a820,#3070e8,#30a860)',
+    'multi':'linear-gradient(135deg,#e83060,#e8a820,#3070e8,#30a860)',
+    'pattern':'repeating-linear-gradient(45deg,#ccc 0,#ccc 2px,#eee 0,#eee 8px)',
+  };
+  const key = name.toLowerCase().trim();
+  return map[key] || (name.startsWith('#') ? name : '#a0a0a0');
+}
+
 // ============ MODAL ============
 function openModal(id){
   // coerce id to same type for safe comparison (Supabase returns numbers)
@@ -1339,7 +1382,7 @@ function openModal(id){
   const thumbs=document.getElementById('modalThumbs');
   thumbs.innerHTML=[0,1,2].map((i)=>`<div class="modal-thumb ${i===0?'active':''}" onclick="selectThumb(this)"><img src="${mainSrc}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover"></div>`).join('');
   const colEl=document.getElementById('modalColors');
-  colEl.innerHTML=p.colors.map((c,i)=>`<div class="color-swatch ${i===0?'active':''}" style="background:${c}" onclick="selectColor('${c}',this)" title="${c}"></div>`).join('');
+  colEl.innerHTML=p.colors.map((c,i)=>`<div class="color-swatch ${i===0?'active':''}" onclick="selectColor('${c.replace(/'/g,"\\'")}',this)" title="${c}"><span class="color-dot" style="background:${colorNameToCSS(c)}"></span>${c}</div>`).join('');
   document.getElementById('modalWaBtn').onclick=()=>orderWAModal();
   document.getElementById('modalCartBtn').onclick=()=>addToCart(p.id);
   document.getElementById('productModal').classList.add('active');
@@ -1382,21 +1425,21 @@ function renderCart(){
     footer.innerHTML='';return;
   }
   body.innerHTML=cart.map(c=>`<div class="cart-item">
-    <div class="cart-item-img" style="background:${c.color||'var(--gray-100)'};display:flex;align-items:center;justify-content:center">
-      <svg width="24" height="24" fill="none" stroke="rgba(255,255,255,0.5)" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a4 4 0 0 1 8 0v3"/></svg>
+    <div class="cart-item-img" style="background:var(--gray-100);display:flex;align-items:center;justify-content:center">
+      <svg width="24" height="24" fill="none" stroke="rgba(0,0,0,0.15)" stroke-width="1" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="13" rx="2"/><path d="M8 8V5a4 4 0 0 1 8 0v3"/></svg>
     </div>
     <div style="flex:1">
       <div class="cart-item-name">${c.name}</div>
-      <div class="cart-item-color">Color: <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:${c.color};vertical-align:middle;margin-right:3px"></span></div>
+      <div class="cart-item-color">Color: <span style="display:inline-flex;align-items:center;gap:4px;font-weight:500;color:var(--black)"><span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:${colorNameToCSS(c.color)};border:1px solid rgba(0,0,0,0.12);flex-shrink:0"></span>${c.color}</span></div>
       <div class="cart-item-price">₦${(c.price*c.qty).toLocaleString()}</div>
       <div style="font-size:0.72rem;color:var(--gray-400)">Qty: ${c.qty}</div>
     </div>
-    <button onclick="removeFromCart(${c.id},'${c.color}')" title="Remove item" style="background:#fff0f0;border:1px solid #ffd0d0;color:#c00;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:4px;flex-shrink:0;transition:all 0.2s" onmouseover="this.style.background='#ffe0e0'" onmouseout="this.style.background='#fff0f0'">
+    <button onclick="removeFromCart(${c.id},'${c.color.replace(/'/g,"\\'")}')" title="Remove item" style="background:#fff0f0;border:1px solid #ffd0d0;color:#c00;width:32px;height:32px;display:flex;align-items:center;justify-content:center;cursor:pointer;border-radius:4px;flex-shrink:0;transition:all 0.2s" onmouseover="this.style.background='#ffe0e0'" onmouseout="this.style.background='#fff0f0'">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>
     </button>
   </div>`).join('');
   const total=cart.reduce((s,c)=>s+c.price*c.qty,0);
-  const cartMsg=cart.map(c=>`• ${c.name} ×${c.qty} = ₦${(c.price*c.qty).toLocaleString()}`).join('\n');
+  const cartMsg=cart.map(c=>`• ${c.name}${c.color?` (${c.color})`:''} ×${c.qty} = ₦${(c.price*c.qty).toLocaleString()}`).join('\n');
   footer.innerHTML=`<div class="cart-total-row"><span class="cart-total-label">Total</span><span class="cart-total-amt">₦${total.toLocaleString()}</span></div>
     <button class="checkout-btn" onclick="openCheckoutModal()">Checkout — Card / Bank Transfer</button>
     <button class="cart-wa-btn" onclick="openWhatsApp('Hello Mobenna Bags!\\n\\nI\\'d like to order:\\n${encodeURIComponent(cartMsg).replace(/%0A/g,'\\n').replace(/%E2%80%A2/g,'•')}\\n\\n*Total:* ₦${total.toLocaleString()}\\n\\nPlease confirm my order. Thank you!')">
@@ -1538,7 +1581,7 @@ async function addAdminProduct(){
   loading.style.display = 'block';
   showToast('Saving product...');
 
-  const finalColors = colors.length ? colors : ['#000000','#8B5E3C'];
+  const finalColors = colors.length ? colors : ['Black', 'Brown'];
   const finalDesc   = desc || 'Premium quality product from Mobenna Bags.';
 
   // ── LOCAL MODE (no Supabase) ──────────────────────────────
@@ -1733,7 +1776,7 @@ async function saveEditProduct(){
 
   if(!name || !price){ showToast('Name and price are required.'); return; }
 
-  const finalColors = colors.length ? colors : ['#000000','#8B5E3C'];
+  const finalColors = colors.length ? colors : ['Black', 'Brown'];
   const finalDesc   = desc || 'Premium quality product from Mobenna Bags.';
   const loading     = document.getElementById('editUploadLoading');
 
