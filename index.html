@@ -1259,6 +1259,9 @@ function renderProductCard(p){
     ${p.inStock&&p.tag==='sale'?'<div class="limit-badge"><span class="limit-dot"></span> Limited Stock</div>':''}
   </div>`;
 }
+const PRODUCTS_INITIAL_LIMIT = 6;
+let productsExpanded = false;
+
 function renderProducts(){
   const g=document.getElementById('productsGrid');
   let filtered=products;
@@ -1266,10 +1269,56 @@ function renderProducts(){
   else if(currentFilter==='wears') filtered=products.filter(p=>p.category==='wears');
   else if(currentFilter==='sale') filtered=products.filter(p=>p.tag==='sale');
   else if(currentFilter==='new') filtered=products.filter(p=>p.tag==='new');
-  g.innerHTML=filtered.length?filtered.map(renderProductCard).join(''):'<p style="color:var(--gray-400);grid-column:1/-1;text-align:center;padding:3rem 0">No products found.</p>';
+
+  if(!filtered.length){
+    g.innerHTML='<p style="color:var(--gray-400);grid-column:1/-1;text-align:center;padding:3rem 0">No products found.</p>';
+    removeSeeMoreBtn();
+    return;
+  }
+
+  const showAll = productsExpanded || filtered.length <= PRODUCTS_INITIAL_LIMIT;
+  const visible = showAll ? filtered : filtered.slice(0, PRODUCTS_INITIAL_LIMIT);
+  g.innerHTML = visible.map(renderProductCard).join('');
+
+  if(!showAll && filtered.length > PRODUCTS_INITIAL_LIMIT){
+    renderSeeMoreBtn(filtered.length - PRODUCTS_INITIAL_LIMIT);
+  } else {
+    removeSeeMoreBtn();
+  }
+}
+
+function renderSeeMoreBtn(remaining){
+  removeSeeMoreBtn();
+  const container = document.getElementById('productsGrid').parentElement;
+  const btn = document.createElement('div');
+  btn.id = 'seeMoreWrap';
+  btn.style.cssText = 'text-align:center;margin-top:2.5rem';
+  btn.innerHTML = `<button id="seeMoreBtn" onclick="expandProducts()" style="display:inline-flex;align-items:center;gap:0.6rem;background:none;border:1.5px solid var(--black);color:var(--black);padding:0.85rem 2.4rem;font-size:0.82rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;font-family:var(--font-body);transition:all 0.3s cubic-bezier(0.4,0,0.2,1);" onmouseover="this.style.background='var(--black)';this.style.color='var(--white)'" onmouseout="this.style.background='none';this.style.color='var(--black)'">
+    See More
+    <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    <span style="font-size:0.72rem;opacity:0.55;font-weight:400">(${remaining} more)</span>
+  </button>`;
+  container.appendChild(btn);
+}
+
+function removeSeeMoreBtn(){
+  const el = document.getElementById('seeMoreWrap');
+  if(el) el.remove();
+}
+
+function expandProducts(){
+  productsExpanded = true;
+  renderProducts();
+  // Scroll smoothly to the newly revealed products
+  const grid = document.getElementById('productsGrid');
+  const cards = grid.querySelectorAll('.product-card');
+  if(cards.length > PRODUCTS_INITIAL_LIMIT){
+    cards[PRODUCTS_INITIAL_LIMIT].scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
 }
 function filterProducts(type,btn){
   currentFilter=type;
+  productsExpanded=false;
   renderProducts();
   if(btn){document.querySelectorAll('.filter-pill').forEach(p=>p.classList.remove('active'));btn.classList.add('active');}
 }
