@@ -677,7 +677,7 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <div class="footer-copy">Developed By <a href="https://instagram.com/yousuf_xxo" target="_blank" style="color: #E8650A;">Xxo</a></div>
+      <div class="footer-copy">Developed By <a href="https://instagram.com/yousuf_xxo" target="_blank" style="color: #E8650A;">Xxo🧃</a></div>
       <div class="footer-copy">© 2026 Mobenna Bags. All rights reserved.</div>    
       <!-- <div class="footer-copy">Phone: +1237084620690 · Plateau State, Nigeria</div> -->
     </div>
@@ -705,11 +705,11 @@
   <!-- LOGIN GATE — shown until password entered -->
   <div class="admin-login-overlay" id="adminLoginOverlay">
     <div class="admin-login-box">
-      <div class="admin-login-logo">MOBENNA<span>.</span></div>
+      <div class="admin-login-logo">MOBENNA<span>.</span>BAGS</div>
       <div class="admin-login-sub">Admin Dashboard — Secure Access</div>
       <div class="admin-login-field">
-        <label class="admin-login-label">Username</label>
-        <input class="admin-login-input" type="text" id="loginUsername" placeholder="Enter username" autocomplete="username" onkeydown="if(event.key==='Enter')doAdminLogin()">
+        <label class="admin-login-label">Email</label>
+        <input class="admin-login-input" type="email" id="loginUsername" placeholder="Enter admin email" autocomplete="email" onkeydown="if(event.key==='Enter')doAdminLogin()">
       </div>
       <div class="admin-login-field">
         <label class="admin-login-label">Password</label>
@@ -724,12 +724,12 @@
         <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
         Sign In
       </button>
-      <div class="admin-login-err" id="loginErr">❌ Incorrect username or password</div>
+      <div class="admin-login-err" id="loginErr">❌ Incorrect email or password</div>
     </div>
   </div>
 
   <div class="admin-header">
-    <h2>Mobenna Admin Dashboard</h2>
+    <h2>Mobenna bags Admin Dashboard</h2>
     <div style="display:flex;align-items:center;gap:1rem">
       <div id="dbStatusBadge" style="font-size:0.7rem;font-weight:600;letter-spacing:0.08em;padding:0.3rem 0.7rem;border-radius:20px"></div>
       <button class="admin-logout-btn" onclick="doAdminLogout()">
@@ -875,6 +875,7 @@
         <div class="modal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Free pickup in Plateau State</div>
         <div class="modal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Secure bank transfer & card payment</div>
         <div class="modal-feature"><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> 100% authentic premium products</div>
+        <div class="modal-feature"> Developed by<a href="https://www.instagram.com/yousuf_xxo" style="color: #C5550A;">Xxo🧃</a></div>
       </div>
     </div>
   </div>
@@ -943,6 +944,7 @@
         I've Paid — Send Receipt on WhatsApp
       </button>
       <p style="font-size:0.72rem;color:var(--orange);text-align:center;margin-top:0.8rem;line-height:1.5">After payment, click the button above to open WhatsApp and send us your payment receipt/screenshot for order confirmation.</p>
+    <p style="font-size:0.72rem;color:var(--orange);text-align:center;margin-top:0.8rem;line-height:1.5">Developed by <a href="https://www.instagram.com/yousuf_xxo" style="color: #000;">Xxo🧃</a></p>
     </div>
   </div>
 </div>
@@ -1061,29 +1063,6 @@
 <div class="toast" id="toast"></div>
 
 <script>
-// ============================================================
-// SUPABASE SETUP — replace these two values to enable cloud sync
-// 1. Go to https://supabase.com → create a free project
-// 2. Settings > API → copy your Project URL & anon key below
-// 3. Table Editor → create table "products" columns:
-//      id          bigint  (PK, generated always as identity)
-//      name        text    not null
-//      category    text
-//      price       numeric
-//      old_price   numeric nullable
-//      tag         text    nullable
-//      in_stock    boolean default true
-//      colors      text    (JSON string)
-//      description text
-//      img         text    nullable
-//      created_at  timestamptz default now()
-// 4. Storage → bucket "product-images" (Public)
-// 5. Auth > Policies → public read; authenticated insert/update/delete
-// ============================================================
-// ─────────────────────────────────────────────────────────────────
-// PASTE YOUR NEW SUPABASE CREDENTIALS HERE AFTER CREATING PROJECT
-// Go to: supabase.com → your project → Settings → API
-// ─────────────────────────────────────────────────────────────────
 const SUPABASE_URL      = 'https://siszrazugdvmenimprnx.supabase.co';       // e.g. https://xxxx.supabase.co
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNpc3pyYXp1Z2R2bWVuaW1wcm54Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjI1MTYsImV4cCI6MjA5MTkzODUxNn0.BeujAVkaS_RqYG4Mm7Iiigxz6DeJS23H8W5WgLMB_zY';  // long eyJ... key
 const STORAGE_BUCKET    = 'product-images';           // must match bucket name exactly
@@ -1485,13 +1464,7 @@ function setDbStatusBadge(){
   }
 }
 
-// ============ ADMIN LOGIN ============
-const ADMIN_USERNAME = 'mobenna';
-const ADMIN_PASSWORD = 'mobenna000';
-
-function isAdminLoggedIn(){
-  return sessionStorage.getItem('mobenna_admin_auth') === 'true';
-}
+// ============ ADMIN LOGIN (Supabase Auth) ============
 function toggleLoginPwd(){
   const inp = document.getElementById('loginPassword');
   const icon = document.getElementById('eyeIcon');
@@ -1503,39 +1476,71 @@ function toggleLoginPwd(){
     icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
   }
 }
-function doAdminLogin(){
-  const u = document.getElementById('loginUsername').value.trim();
-  const p = document.getElementById('loginPassword').value;
+
+async function isAdminLoggedIn(){
+  if(!USE_SUPABASE || !db) return false;
+  try {
+    const { data } = await db.auth.getSession();
+    return !!(data && data.session && data.session.user);
+  } catch(e){ return false; }
+}
+
+async function doAdminLogin(){
+  const email = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value;
   const errEl = document.getElementById('loginErr');
   const uEl = document.getElementById('loginUsername');
   const pEl = document.getElementById('loginPassword');
-  if(u === ADMIN_USERNAME && p === ADMIN_PASSWORD){
-    sessionStorage.setItem('mobenna_admin_auth','true');
-    document.getElementById('adminLoginOverlay').style.display = 'none';
-    errEl.classList.remove('show');
-    setDbStatusBadge();
-    renderAdminList();
-  } else {
+  const btn = document.querySelector('.admin-login-btn');
+
+  if(!USE_SUPABASE || !db){
+    errEl.textContent = '❌ Supabase is not configured.';
     errEl.classList.add('show');
-    uEl.classList.add('error'); pEl.classList.add('error');
-    setTimeout(()=>{ uEl.classList.remove('error'); pEl.classList.remove('error'); }, 600);
-    pEl.value = '';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Signing in…';
+  errEl.classList.remove('show');
+
+  try {
+    const { data, error } = await db.auth.signInWithPassword({ email, password });
+    if(error || !data.session){
+      errEl.textContent = '❌ Incorrect email or password';
+      errEl.classList.add('show');
+      uEl.classList.add('error'); pEl.classList.add('error');
+      setTimeout(()=>{ uEl.classList.remove('error'); pEl.classList.remove('error'); }, 600);
+      pEl.value = '';
+    } else {
+      document.getElementById('adminLoginOverlay').style.display = 'none';
+      errEl.classList.remove('show');
+      setDbStatusBadge();
+      renderAdminList();
+    }
+  } catch(e){
+    errEl.textContent = '❌ Login error: ' + e.message;
+    errEl.classList.add('show');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Sign In';
   }
 }
-function doAdminLogout(){
-  sessionStorage.removeItem('mobenna_admin_auth');
+
+async function doAdminLogout(){
+  if(USE_SUPABASE && db) await db.auth.signOut();
   document.getElementById('adminLoginOverlay').style.display = 'flex';
   document.getElementById('loginUsername').value = '';
   document.getElementById('loginPassword').value = '';
   document.getElementById('loginErr').classList.remove('show');
 }
 
-function toggleAdmin(){
+async function toggleAdmin(){
   const panel = document.getElementById('adminPanel');
   panel.classList.toggle('open');
   if(panel.classList.contains('open')){
     const overlay = document.getElementById('adminLoginOverlay');
-    if(isAdminLoggedIn()){
+    const loggedIn = await isAdminLoggedIn();
+    if(loggedIn){
       overlay.style.display = 'none';
       setDbStatusBadge();
       renderAdminList();
